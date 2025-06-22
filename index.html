@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kế hoạch Kinh doanh - Phòng khám Đa khoa Quốc Khanh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* gray-50 */
+        }
+        .section-title {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 800;
+            color: #1e3a8a; /* blue-900 */
+            margin-bottom: 1.5rem; /* 24px */
+            border-left: 5px solid #d946ef; /* fuchsia-500 */
+            padding-left: 1rem; /* 16px */
+        }
+        .subsection-title {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 700;
+            color: #1e3a8a; /* blue-900 */
+            margin-top: 2rem; /* 32px */
+            margin-bottom: 1rem; /* 16px */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* 12px */
+            padding: 1.5rem; /* 24px */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover {
+            color: #d946ef; /* fuchsia-500 */
+            border-bottom-color: #d946ef;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #e5e7eb; /* gray-200 */
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.875rem; /* 14px */
+        }
+        th {
+            background-color: #eff6ff; /* blue-100 */
+            font-weight: 600;
+            color: #1e3a8a; /* blue-900 */
+        }
+        .accent-color {
+            color: #c026d3; /* fuchsia-600 */
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        /* Custom timeline style */
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #d1d5db;
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+            padding-bottom: 0;
+        }
+        .timeline-icon {
+            position: absolute;
+            left: -0.7rem;
+            top: 0.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header and Navigation -->
+    <header class="sticky-nav">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-blue-900 flex items-center"><i class="fa-solid fa-staff-aesculapius mr-2 text-fuchsia-500"></i>PKĐK QUỐC KHANH</a>
+            <nav id="desktop-menu" class="hidden md:flex space-x-6">
+                <a href="#tong-quan" class="nav-link text-gray-600 font-semibold border-b-2 border-transparent">Tổng quan</a>
+                <a href="#phan-tich" class="nav-link text-gray-600 font-semibold border-b-2 border-transparent">Phân tích</a>
+                <a href="#ke-hoach-trien-khai" class="nav-link text-gray-600 font-semibold border-b-2 border-transparent">Triển khai</a>
+                <a href="#tai-chinh" class="nav-link text-gray-600 font-semibold border-b-2 border-transparent">Tài chính</a>
+                <a href="#rui-ro" class="nav-link text-gray-600 font-semibold border-b-2 border-transparent">Rủi ro</a>
+                <a href="#dieu-kien" class="nav-link text-gray-600 font-semibold border-b-2 border-transparent">Điều kiện</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-blue-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden">
+             <a href="#tong-quan" class="block py-2 px-4 text-sm hover:bg-gray-200">Tổng quan</a>
+             <a href="#phan-tich" class="block py-2 px-4 text-sm hover:bg-gray-200">Phân tích</a>
+             <a href="#ke-hoach-trien-khai" class="block py-2 px-4 text-sm hover:bg-gray-200">Triển khai</a>
+             <a href="#tai-chinh" class="block py-2 px-4 text-sm hover:bg-gray-200">Tài chính</a>
+             <a href="#rui-ro" class="block py-2 px-4 text-sm hover:bg-gray-200">Rủi ro</a>
+             <a href="#dieu-kien" class="block py-2 px-4 text-sm hover:bg-gray-200">Điều kiện</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- Hero Section -->
+        <section class="text-center mb-24">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-blue-900 mb-4 animate-fade-in-down">DỰ ÁN PHÒNG KHÁM ĐA KHOA QUỐC KHANH</h1>
+            <p class="text-xl md:text-2xl text-gray-600 animate-fade-in-up">Kế hoạch Kinh doanh & Lộ trình Triển khai</p>
+            <p class="mt-4 text-lg text-gray-500">Một góc nhìn trực quan về cơ hội đầu tư và tiềm năng tăng trưởng.</p>
+             <a href="KH KINH DOANH PK ĐK QUỐC KHANH.pdf" download class="mt-8 inline-block bg-fuchsia-600 text-white font-bold py-3 px-8 rounded-full hover:bg-fuchsia-700 transition-transform transform hover:scale-105">
+                <i class="fa-solid fa-download mr-2"></i> Tải về bản PDF
+            </a>
+        </section>
+
+        <!-- PHẦN 1: TỔNG QUAN DỰ ÁN -->
+        <section id="tong-quan" class="mb-20 scroll-mt-20">
+            <h2 class="section-title reveal">PHẦN 1: TỔNG QUAN DỰ ÁN</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card reveal">
+                    <h3 class="subsection-title"><i class="fa-solid fa-pen-fancy mr-2 text-fuchsia-500"></i>1.1. Thư ngỏ</h3>
+                    <p class="text-gray-600">Với tâm huyết kiến tạo một chuẩn mực mới trong lĩnh vực chăm sóc sức khỏe tư nhân tại Việt Nam, chúng tôi trân trọng trình bày bản Kế hoạch Kinh doanh chi tiết cho dự án xây dựng và phát triển Phòng khám Đa khoa Mẫu. Đây không chỉ là một cơ sở y tế, mà là mô hình kiểu mẫu về chất lượng chuyên môn, dịch vụ tận tâm và hiệu quả vận hành, sẵn sàng cho chiến lược nhân rộng trong tương lai. Chúng tôi tin rằng, dự án này sẽ đặt một nền móng vững chắc, mang lại giá trị bền vững cho cộng đồng và các nhà đầu tư.</p>
+                </div>
+                <div class="card bg-blue-50 border-l-4 border-blue-500 reveal">
+                    <h3 class="subsection-title"><i class="fa-solid fa-file-lines mr-2 text-blue-500"></i>1.2. Tóm tắt Kế hoạch</h3>
+                    <p class="text-gray-700 mb-4">Dự án PKĐK Quốc Khanh được thành lập nhằm đáp ứng nhu cầu về một cơ sở y tế chất lượng cao, dịch vụ nhanh chóng, chi phí hợp lý tại Hóc Môn và khu vực lân cận.</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><b>Định vị:</b> "Khoảng trống" giữa bệnh viện công quá tải và bệnh viện tư đắt đỏ.</li>
+                        <li><b>Khách hàng mục tiêu:</b> Doanh nghiệp KCN, dân cư địa phương, khách hàng lẻ.</li>
+                        <li><b>Lợi thế cạnh tranh:</b> Đội ngũ kinh doanh thiện chiến, mạng lưới >1.000 đối tác y tế.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 class="subsection-title mt-12 text-center reveal"><i class="fas fa-star mr-2 text-yellow-500"></i>Điểm nhấn Đầu tư (Key Investment Highlights)</h3>
+            <div class="grid md:grid-cols-3 gap-8 text-center reveal">
+                 <div class="card border-t-4 border-green-500">
+                     <i class="fas fa-chart-pie text-4xl text-green-500 mb-4"></i>
+                    <h4 class="font-bold text-xl mb-2">ROI Hấp dẫn</h4>
+                    <p class="text-3xl font-extrabold accent-color">179%</p>
+                     <p class="text-gray-500">Tỷ suất hoàn vốn dự kiến ngay trong Quý 1.</p>
+                </div>
+                 <div class="card border-t-4 border-blue-500">
+                     <i class="fas fa-users-line text-4xl text-blue-500 mb-4"></i>
+                    <h4 class="font-bold text-xl mb-2">Thị trường Rộng lớn</h4>
+                     <p class="text-3xl font-extrabold accent-color">>460,000</p>
+                    <p class="text-gray-500">Dân số huyện Hóc Môn (năm 2024), chưa kể các KCN lân cận.</p>
+                </div>
+                <div class="card border-t-4 border-fuchsia-500">
+                    <i class="fas fa-rocket text-4xl text-fuchsia-500 mb-4"></i>
+                    <h4 class="font-bold text-xl mb-2">Tăng trưởng Nhanh</h4>
+                    <p class="text-3xl font-extrabold accent-color">3.6 Tỷ</p>
+                    <p class="text-gray-500">Mục tiêu doanh thu từ hợp đồng trong 90 ngày đầu tiên.</p>
+                </div>
+            </div>
+
+
+            <h3 class="subsection-title mt-12 text-center reveal">Mô hình Kinh doanh (Business Model Canvas)</h3>
+            <div class="card overflow-x-auto reveal">
+                 <div class="grid grid-cols-1 md:grid-cols-5 gap-2 text-sm">
+                    <div class="border p-3 rounded-lg bg-gray-50">
+                        <h4 class="font-bold text-blue-800 mb-2"><i class="fa-solid fa-handshake mr-1"></i>Đối tác chính</h4>
+                        <ul class="list-disc list-inside ml-2">
+                            <li>Bác sĩ, chuyên gia y tế</li>
+                            <li>Nhà cung cấp dược phẩm, TBYT</li>
+                            <li>Công ty bảo hiểm</li>
+                            <li>Doanh nghiệp, nhà máy KCN</li>
+                            <li>UBND, Đoàn thể địa phương</li>
+                        </ul>
+                    </div>
+                     <div class="space-y-2 col-span-1 md:col-span-2">
+                         <div class="border p-3 rounded-lg bg-gray-50 h-full">
+                            <h4 class="font-bold text-blue-800 mb-2"><i class="fa-solid fa-list-check mr-1"></i>Các hành động chính</h4>
+                            <ul class="list-disc list-inside ml-2">
+                                <li>Khám chữa bệnh đa khoa & chuyên khoa</li>
+                                <li>Dịch vụ cận lâm sàng</li>
+                                <li>Xây dựng & bán gói khám sức khỏe</li>
+                                <li>Marketing & xây dựng thương hiệu</li>
+                                <li>Tổ chức sự kiện sức khỏe cộng đồng</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="border p-3 rounded-lg bg-yellow-50 col-span-1 md:col-span-2">
+                         <h4 class="font-bold text-yellow-800 mb-2"><i class="fa-solid fa-gem mr-1"></i>Giá trị/Chất lượng</h4>
+                         <ul class="list-disc list-inside ml-2">
+                             <li>Y tế chất lượng cao, đáng tin cậy</li>
+                             <li><b class="text-yellow-700">Nhanh chóng:</b> Quy trình tối ưu</li>
+                             <li><b class="text-yellow-700">Tận tâm:</b> Chăm sóc kỹ lưỡng</li>
+                             <li><b class="text-yellow-700">Chi phí hợp lý</b></li>
+                         </ul>
+                    </div>
+                     <div class="border p-3 rounded-lg bg-gray-50">
+                         <h4 class="font-bold text-blue-800 mb-2"><i class="fa-solid fa-cogs mr-1"></i>Nguồn lực chủ chốt</h4>
+                         <ul class="list-disc list-inside ml-2">
+                            <li>Con người: Y bác sĩ, đội ngũ KD</li>
+                            <li>Vật chất: Vị trí, CSVC, TBYT</li>
+                            <li>Tài chính: Vốn đầu tư</li>
+                            <li>Trí tuệ: Giấy phép, quy trình</li>
+                         </ul>
+                    </div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 col-span-1 md:col-span-2">
+                         <div class="border p-3 rounded-lg bg-gray-50">
+                             <h4 class="font-bold text-blue-800 mb-2"><i class="fa-solid fa-users mr-1"></i>Quan hệ khách hàng</h4>
+                             <ul class="list-disc list-inside ml-2">
+                                 <li>B2B: Đối tác tin cậy</li>
+                                 <li>B2G: "Phòng khám của mọi nhà"</li>
+                                 <li>B2C: Chăm sóc gia đình</li>
+                             </ul>
+                         </div>
+                         <div class="border p-3 rounded-lg bg-gray-50">
+                            <h4 class="font-bold text-blue-800 mb-2"><i class="fa-solid fa-satellite-dish mr-1"></i>Kênh tiếp cận</h4>
+                            <ul class="list-disc list-inside ml-2">
+                                <li>Offline: Phòng khám, Sales, Sự kiện</li>
+                                <li>Online: Website, MXH, Hotline</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="border p-3 rounded-lg bg-green-50 col-span-1 md:col-span-2">
+                        <h4 class="font-bold text-green-800 mb-2"><i class="fa-solid fa-sack-dollar mr-1"></i>Dòng doanh thu</h4>
+                         <ul class="list-disc list-inside ml-2">
+                            <li>Phí dịch vụ khách lẻ</li>
+                             <li>Hợp đồng KSK doanh nghiệp</li>
+                             <li>Bán gói khám sức khỏe</li>
+                             <li>Nhà thuốc và dịch vụ cộng thêm</li>
+                        </ul>
+                    </div>
+                     <div class="border p-3 rounded-lg bg-red-50 col-span-1 md:col-span-5">
+                        <h4 class="font-bold text-red-800 mb-2"><i class="fa-solid fa-file-invoice-dollar mr-1"></i>Cơ cấu Chi phí</h4>
+                        <div class="flex justify-between flex-wrap">
+                            <ul class="list-disc list-inside ml-2"><li>Cố định: Thuê mặt bằng, lương, khấu hao TBYT</li></ul>
+                            <ul class="list-disc list-inside ml-2"><li>Biến đổi: Vật tư y tế, dược phẩm, marketing, hoa hồng</li></ul>
+                        </div>
+                    </div>
+                    <div class="border p-3 rounded-lg bg-indigo-50 col-span-1 md:col-span-5 mt-2">
+                        <h4 class="font-bold text-indigo-800 mb-2"><i class="fa-solid fa-user-group mr-1"></i>Phân khúc khách hàng</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><b class="text-indigo-700">Nhóm 1 (B2B):</b> Các công ty, nhà máy, xí nghiệp trong KCN Tân Bình, Vĩnh Lộc và các doanh nghiệp SMEs.</div>
+                            <div><b class="text-indigo-700">Nhóm 2 (B2G):</b> Cư dân thuộc xã Bà Điểm và các xã/thị trấn lân cận.</div>
+                            <div><b class="text-indigo-700">Nhóm 3 (B2C):</b> Các hộ gia đình, công nhân, người lao động và tiểu thương.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: PHÂN TÍCH BỐI CẢNH CHI TIẾT -->
+        <section id="phan-tich" class="mb-20 scroll-mt-20">
+            <h2 class="section-title reveal">PHẦN 2: PHÂN TÍCH BỐI CẢNH</h2>
+            <div class="card text-center bg-gradient-to-r from-blue-800 to-purple-800 text-white p-8 reveal">
+                <h3 class="text-3xl font-bold">"Khoảng trống Vàng" của Thị trường</h3>
+                <p class="mt-2 text-lg opacity-90">Cung cấp một giải pháp cân bằng hoàn hảo: Chất lượng Chuyên môn cao & Dịch vụ Nhanh chóng với Mức giá Hợp lý.</p>
+            </div>
+
+            <h3 class="subsection-title reveal">2.1. Phân tích Thị trường & Chân dung Khách hàng</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card reveal">
+                    <p>Phòng khám tọa lạc tại <strong>120 Phan Văn Hớn, xã Bà Điểm, huyện Hóc Môn</strong>, một vị trí cửa ngõ chiến lược.</p>
+                    <p class="mt-4"><strong>"Nỗi đau" thị trường:</strong> Khu vực dân số đông, thu nhập trung bình, e ngại bệnh viện công quá tải và bệnh viện tư quá đắt đỏ.</p>
+                    <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
+                        <p class="font-semibold text-indigo-800">Minh chứng Tiềm năng:</p>
+                        <ul class="list-disc list-inside text-indigo-700 mt-2">
+                             <li>Dân số H. Hóc Môn: <strong>~462,000 người</strong> (Cục Thống kê, 2024).</li>
+                            <li>KCN Lân cận (Tân Bình, Vĩnh Lộc): <strong>>2,000 doanh nghiệp</strong> với hàng trăm ngàn lao động.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="card reveal">
+                    <img src="https://i.imgur.com/k28b3d6.png" alt="Bản đồ định vị và phân tích các phòng khám, bệnh viện" class="rounded-lg shadow-md object-cover w-full h-full">
+                </div>
+            </div>
+
+            <h3 class="subsection-title reveal">2.2. Phân tích Đối thủ & Hướng tiếp cận</h3>
+             <div class="card overflow-x-auto reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Đối thủ</th>
+                            <th>Định vị của họ</th>
+                            <th>Chiến lược của chúng ta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold">Bệnh viện công (BV ĐK KV Hóc Môn)</td>
+                            <td>"Nơi cuối cùng" cho các bệnh nặng, giá rẻ nhất.</td>
+                            <td class="text-green-700 font-medium"><i class="fa-solid fa-bolt mr-2"></i>Tập trung vào TỐC ĐỘ và TRẢI NGHIỆM.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Bệnh viện tư lớn (BV Xuyên Á)</td>
+                            <td>"Dịch vụ cao cấp, toàn diện" với chi phí đắt đỏ.</td>
+                            <td class="text-green-700 font-medium"><i class="fa-solid fa-hand-holding-dollar mr-2"></i>Tập trung vào CHI PHÍ HỢP LÝ.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Các phòng khám tư nhỏ, lẻ</td>
+                            <td>"Tiện lợi, gần nhà" dựa trên uy tín cá nhân.</td>
+                            <td class="text-green-700 font-medium"><i class="fa-solid fa-medal mr-2"></i>Tập trung vào QUY MÔ và TÍNH CHUYÊN NGHIỆP.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 class="subsection-title reveal">Phân tích SWOT</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card border-t-4 border-green-500 reveal">
+                    <h4 class="text-xl font-bold text-green-700 mb-2"><i class="fa-solid fa-check-circle mr-2"></i>Điểm mạnh (Strengths)</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Đội ngũ kinh doanh chủ động & thiện chiến.</li>
+                        <li>Sở hữu mặt bằng tại vị trí có tiềm năng giao thương cao.</li>
+                        <li>Định hướng mô hình chuẩn để nhân rộng.</li>
+                        <li>Cơ sở vật chất mới, hiện đại.</li>
+                    </ul>
+                </div>
+                <div class="card border-t-4 border-red-500 reveal">
+                    <h4 class="text-xl font-bold text-red-700 mb-2"><i class="fa-solid fa-minus-circle mr-2"></i>Điểm yếu (Weaknesses)</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Thương hiệu mới = Niềm tin bằng không.</li>
+                        <li>Áp lực tuyển dụng đội ngũ y tế giỏi.</li>
+                    </ul>
+                </div>
+                 <div class="card border-t-4 border-blue-500 reveal">
+                    <h4 class="text-xl font-bold text-blue-700 mb-2"><i class="fa-solid fa-sun mr-2"></i>Cơ hội (Opportunities)</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Thị trường B2B "dưới chân" chưa được khai thác chuyên nghiệp.</li>
+                        <li>Nhu cầu thực về dịch vụ "tầm trung" là rất lớn.</li>
+                        <li>Sức mạnh của Marketing cộng đồng để xây dựng lòng tin.</li>
+                    </ul>
+                </div>
+                 <div class="card border-t-4 border-yellow-500 reveal">
+                    <h4 class="text-xl font-bold text-yellow-700 mb-2"><i class="fa-solid fa-exclamation-triangle mr-2"></i>Thách thức (Threats)</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Rào cản "Bác sĩ quen" của người dân.</li>
+                        <li>Cạnh tranh về giá từ y tế công.</li>
+                        <li>Khó khăn trong thu hút nhân tài y tế.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: KẾ HOẠCH TRIỂN KHAI CHI TIẾT -->
+        <section id="ke-hoach-trien-khai" class="mb-20 scroll-mt-20">
+            <h2 class="section-title reveal">PHẦN 3: KẾ HOẠCH TRIỂN KHAI</h2>
+             <div class="grid md:grid-cols-2 gap-8 items-center reveal">
+                <div class="card">
+                    <h3 class="subsection-title">Mô hình Doanh thu Đa dạng</h3>
+                    <p>Mô hình kinh doanh không phụ thuộc vào một nguồn thu duy nhất, tạo ra sự bền vững và giảm thiểu rủi ro.</p>
+                    <ul class="mt-4 space-y-2">
+                        <li><span class="font-bold text-blue-600">42.4%</span> Dịch vụ & Dược tại PK (B2C)</li>
+                        <li><span class="font-bold text-green-600">34.0%</span> Gói khám Doanh nghiệp (B2B)</li>
+                        <li><span class="font-bold text-yellow-600">23.6%</span> Phân phối Dược (B2B)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                     <h4 class="text-center font-semibold mb-4">Cơ cấu Doanh thu Dự kiến (12 tháng)</h4>
+                    <canvas id="revenueStructureChart"></canvas>
+                </div>
+            </div>
+            
+            <h3 class="subsection-title reveal">3.1. Chiến lược Sản phẩm & Dịch vụ Mũi nhọn</h3>
+            <div class="card overflow-x-auto reveal">
+                <h4 class="font-bold mb-2">Sản phẩm Mũi nhọn 1 (B2C): Xét nghiệm tầm soát chủ động</h4>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th>Tên Gói tầm soát</th>
+                            <th>Hạng mục chính</th>
+                            <th>Giá dự kiến/gói</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TẦM SOÁT BỆNH LÝ NỀN</td><td>Đường huyết, Mỡ máu, Chức năng gan, thận.</td><td class="font-bold accent-color">499.000₫</td></tr>
+                        <tr><td>TẦM SOÁT UNG THƯ NAM</td><td>CEA, AFP, Total PSA.</td><td class="font-bold accent-color">799.000₫</td></tr>
+                        <tr><td>TẦM SOÁT UNG THƯ NỮ</td><td>CEA, AFP, CA 15-3, CA 125.</td><td class="font-bold accent-color">999.000₫</td></tr>
+                        <tr><td>TẦM SOÁT BỆNH TRUYỀN NHIỄM</td><td>Viêm gan B, Viêm gan C, HIV, Giang mai.</td><td class="font-bold accent-color">699.000₫</td></tr>
+                    </tbody>
+                </table>
+                 <h4 class="font-bold mt-6 mb-2">Sản phẩm Mũi nhọn 2 & 3 (B2B): Gói khám Sức khỏe Doanh nghiệp & Phân phối Dược phẩm</h4>
+                 <p>Các sản phẩm này giúp thu hút khách hàng doanh nghiệp, gia tăng giá trị và tối đa hóa năng lực từ mạng lưới đối tác.</p>
+            </div>
+            
+            <h3 class="subsection-title reveal">Năng lực Cốt lõi & Đội ngũ</h3>
+            <div class="card bg-blue-50 border-l-4 border-blue-500 reveal">
+                <h4 class="font-bold text-xl text-blue-800 mb-4">Lợi thế Cạnh tranh từ Đội ngũ Kinh doanh</h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h5 class="font-bold mb-2"><i class="fas fa-network-wired mr-2"></i>Mạng lưới Đối tác & Tầm nhìn Đa chiều</h5>
+                        <p>Sở hữu mạng lưới quan hệ với hơn <b class="text-blue-700">1.000 đối tác chiến lược</b> (bác sĩ, phòng khám, bệnh viện...). Năng lực thấu hiểu đa dạng thị trường giúp nhanh chóng thâm nhập và tạo dựng uy tín.</p>
+                    </div>
+                     <div>
+                        <h5 class="font-bold mb-2"><i class="fas fa-sitemap mr-2"></i>Nền tảng Quản trị Hệ thống Vững chắc</h5>
+                        <p>Kinh nghiệm đã được chứng minh trong việc <b class="text-blue-700">xây dựng và vận hành thành công đội ngũ Kinh doanh & Marketing từ con số 0</b>, sẵn sàng cho việc nhân rộng mô hình.</p>
+                    </div>
+                </div>
+                 <div class="mt-6 p-4 bg-white rounded-lg shadow">
+                     <h5 class="font-bold text-center mb-4"><i class="fas fa-balance-scale mr-2"></i>Phân tích Chi phí: Đội ngũ của chúng tôi vs. Thuê ngoài (Outsource)</h5>
+                     <p class="text-center text-gray-600 mb-4">Hợp tác với chúng tôi giúp đối tác <b class="text-red-600">tiết kiệm ngay lập tức ~440 triệu đồng chi phí setup</b> và <b class="text-red-600">~100 triệu đồng chi phí vận hành hàng tháng</b>.</p>
+                    <canvas id="costComparisonChart"></canvas>
+                 </div>
+            </div>
+
+            <h3 class="subsection-title reveal">Kế hoạch Hành động 90 ngày</h3>
+            <div class="card reveal">
+                <div class="timeline-item">
+                    <div class="timeline-icon bg-cyan-500"><i class="fas fa-rocket"></i></div>
+                    <h4 class="font-bold text-xl">Tháng 1: KHỞI ĐỘNG - "Rèn vũ khí"</h4>
+                    <p class="text-sm text-gray-500 mb-2">Tuần 1-4</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><b>Hành động:</b> Hoàn thiện Sales Kit, Lập danh sách KH tiềm năng, Đào tạo đội ngũ, Thiết lập CRM.</li>
+                        <li class="font-semibold text-cyan-800"><b>KPIs:</b> Sales Kit 100% complete, 300-500 leads, 20 cuộc hẹn đầu tiên.</li>
+                    </ul>
+                </div>
+                 <div class="timeline-item">
+                    <div class="timeline-icon bg-fuchsia-500"><i class="fas fa-handshake"></i></div>
+                    <h4 class="font-bold text-xl">Tháng 2: ĐẨY MẠNH - "Chốt Hợp đồng"</h4>
+                    <p class="text-sm text-gray-500 mb-2">Tuần 5-8</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><b>Hành động:</b> Gặp gỡ khách hàng, Tổ chức "Health Talk" tại DN, Lên kế hoạch sự kiện cộng đồng.</li>
+                        <li class="font-semibold text-fuchsia-800"><b>KPIs:</b> 8-12 hợp đồng B2B được ký, 2 Health Talks, 1 kế hoạch sự kiện B2G được duyệt.</li>
+                    </ul>
+                </div>
+                 <div class="timeline-item">
+                    <div class="timeline-icon bg-emerald-500"><i class="fas fa-chart-line"></i></div>
+                    <h4 class="font-bold text-xl">Tháng 3: MỞ RỘNG - "Tạo Đà"</h4>
+                     <p class="text-sm text-gray-500 mb-2">Tuần 9-12</p>
+                     <ul class="list-disc list-inside space-y-1">
+                        <li><b>Hành động:</b> Đẩy mạnh bán hàng, Triển khai khám cho DN, Tổ chức "Ngày hội Sức khỏe", Tổng kết quý.</li>
+                        <li class="font-semibold text-emerald-800"><b>KPIs:</b> 12-18 hợp đồng B2B mới, >200 người tham gia sự kiện, 50 leads B2C mới.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 4: KẾ HOẠCH TÀI CHÍNH -->
+        <section id="tai-chinh" class="mb-20 scroll-mt-20">
+            <h2 class="section-title reveal">PHẦN 4: KẾ HOẠCH TÀI CHÍNH</h2>
+            <div class="card bg-gray-800 text-white p-8 reveal">
+                <h3 class="text-2xl font-bold text-center mb-6">Phân tích Hiệu quả Kinh doanh Dự kiến (12 tháng)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <p class="text-gray-400 text-sm">Tổng Doanh thu</p>
+                        <p class="text-4xl font-bold text-green-400">35.7 Tỷ</p>
+                    </div>
+                     <div>
+                        <p class="text-gray-400 text-sm">Lợi nhuận Gộp</p>
+                        <p class="text-4xl font-bold text-cyan-400">25.69 Tỷ</p>
+                    </div>
+                     <div>
+                        <p class="text-gray-400 text-sm">Lợi nhuận Ròng (Trước thuế)</p>
+                        <p class="text-4xl font-bold text-yellow-400">17.4 Tỷ</p>
+                    </div>
+                     <div>
+                        <p class="text-gray-400 text-sm">Tỷ suất Lợi nhuận Ròng</p>
+                        <p class="text-4xl font-bold text-fuchsia-400">48.7%</p>
+                    </div>
+                </div>
+                <div class="mt-8">
+                     <h4 class="text-center font-semibold mb-4 text-gray-300">Lộ trình Tăng trưởng theo Quý (ĐVT: Tỷ VND)</h4>
+                    <canvas id="quarterlyGrowthChart"></canvas>
+                </div>
+            </div>
+
+            <h3 class="subsection-title reveal">4.1. Ngân sách lương đội ngũ Kinh doanh (Quý I)</h3>
+            <div class="card overflow-x-auto reveal">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Hạng mục Chi phí</th>
+                            <th>Chi phí / tháng (VND)</th>
+                            <th>Tổng Chi phí 3 tháng (VND)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Giám đốc Kinh doanh (1)</td><td class="text-right">34.020.000</td><td class="text-right">102.060.000</td></tr>
+                        <tr><td>Trưởng Phòng PT Đối Tác (1)</td><td class="text-right">34.020.000</td><td class="text-right">102.060.000</td></tr>
+                        <tr><td>Chuyên viên Kinh doanh (4)</td><td class="text-right">72.900.000</td><td class="text-right">218.700.000</td></tr>
+                        <tr><td>Nhân viên Marketing (2)</td><td class="text-right">36.450.000</td><td class="text-right">109.350.000</td></tr>
+                        <tr><td>Nhân viên Thiết kế (1)</td><td class="text-right">20.655.000</td><td class="text-right">61.965.000</td></tr>
+                        <tr><td>Nhân viên Sales Admin (1)</td><td class="text-right">17.010.000</td><td class="text-right">51.030.000</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-bold bg-blue-100">
+                            <td>Tổng chi phí Lương & Phúc lợi</td>
+                            <td class="text-right text-blue-800">215.055.000</td>
+                            <td class="text-right text-blue-800">645.165.000</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <h3 class="subsection-title reveal">4.5 P&L: Bức tranh tổng quan 12 tháng</h3>
+            <div class="card overflow-x-auto reveal">
+                 <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Hạng mục</th>
+                            <th>TỔNG 12 THÁNG (VND)</th>
+                            <th>Tỷ trọng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-gray-50"><td class="font-semibold">Tổng Doanh thu (A)</td><td class="font-semibold text-right">35.758.187.250</td><td class="font-semibold text-right">100%</td></tr>
+                        <tr><td>Giá vốn (B)</td><td class="text-right">10.067.898.475</td><td class="text-right">28.16%</td></tr>
+                        <tr class="bg-blue-50"><td class="font-bold">LÃI GỘP (C = A - B)</td><td class="font-bold text-right text-blue-700">25.690.288.775</td><td class="font-bold text-right text-blue-700">71.84%</td></tr>
+                         <tr><td>Tổng chi phí vận hành (D)</td><td class="text-right">8.283.467.121</td><td class="text-right">23.2%</td></tr>
+                        <tr class="bg-green-50"><td class="font-extrabold">LỢI NHUẬN RÒNG (E = C - D)</td><td class="font-extrabold text-right text-green-700">17.406.821.655</td><td class="font-extrabold text-right text-green-700">48.7%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PHẦN 5: QUẢN LÝ RỦI RO -->
+        <section id="rui-ro" class="mb-20 scroll-mt-20">
+            <h2 class="section-title reveal">PHẦN 5: QUẢN LÝ RỦI RO</h2>
+             <div class="card reveal">
+                <p>Một dự án thành công không chỉ nhờ vào việc nắm bắt cơ hội mà còn ở khả năng dự báo và quản trị rủi ro một cách chủ động.</p>
+                <div class="mt-6 space-y-6">
+                    <div class="p-4 rounded-lg border border-red-200 bg-red-50">
+                        <h4 class="font-bold text-red-800">Rủi ro: Chậm tiến độ Setup & Tuyển dụng khối chuyên môn.</h4>
+                        <p class="text-sm text-gray-500">Mức độ Ảnh hưởng: Rất Cao / Khả năng Xảy ra: Cao</p>
+                        <p class="mt-2 text-red-700"><span class="font-semibold">Giải pháp:</span> Xây dựng Lộ trình Dự án tổng thể (Master Plan), vận hành song song và họp giao ban hàng tuần giữa các khối để đảm bảo đồng bộ.</p>
+                    </div>
+                     <div class="p-4 rounded-lg border border-yellow-200 bg-yellow-50">
+                        <h4 class="font-bold text-yellow-800">Rủi ro: Chất lượng dịch vụ ban đầu chưa đáp ứng kỳ vọng.</h4>
+                        <p class="text-sm text-gray-500">Mức độ Ảnh hưởng: Cao / Khả năng Xảy ra: Cao</p>
+                        <p class="mt-2 text-yellow-700"><span class="font-semibold">Giải pháp:</span> Chuẩn hóa quy trình (SOP), đào tạo nhập vai, và thực hiện "soft-launch" (khai trương thử) để khắc phục lỗi vận hành.</p>
+                    </div>
+                     <div class="p-4 rounded-lg border border-blue-200 bg-blue-50">
+                        <h4 class="font-bold text-blue-800">Rủi ro: Khách hàng cần thời gian để thay đổi thói quen khám bệnh.</h4>
+                         <p class="text-sm text-gray-500">Mức độ Ảnh hưởng: Cao / Khả năng Xảy ra: Cao</p>
+                        <p class="mt-2 text-blue-700"><span class="font-semibold">Giải pháp:</span> Đẩy mạnh các gói xét nghiệm tầm soát - dịch vụ khác biệt để tạo lý do cho khách hàng đến lần đầu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PHẦN 6: ĐIỀU KIỆN CẦN & ĐỦ -->
+        <section id="dieu-kien" class="mb-20 scroll-mt-20">
+            <h2 class="section-title reveal">PHẦN 6: ĐIỀU KIỆN CẦN & ĐỦ</h2>
+            <div class="grid md:grid-cols-3 gap-8 reveal">
+                <div class="card">
+                    <h4 class="font-bold text-xl mb-2"><i class="fas fa-flag-checkered mr-2 text-blue-500"></i>Cam kết về Chiến lược & Trao quyền</h4>
+                    <p>Thống nhất kế hoạch, trao quyền cho đội ngũ thực thi và thiết lập cơ chế ra quyết định nhanh gọn.</p>
+                </div>
+                <div class="card">
+                    <h4 class="font-bold text-xl mb-2"><i class="fas fa-coins mr-2 text-yellow-500"></i>Cam kết về Nguồn lực</h4>
+                    <p>Đảm bảo kịp thời về tài chính, ưu tiên hoàn thiện đội ngũ chuyên môn và hỗ trợ các thủ tục pháp lý.</p>
+                </div>
+                <div class="card">
+                    <h4 class="font-bold text-xl mb-2"><i class="fas fa-people-arrows mr-2 text-green-500"></i>Cam kết về Phối hợp</h4>
+                    <p>Chỉ định một đầu mối liên lạc duy nhất, xây dựng văn hóa hợp tác và cơ chế báo cáo rõ ràng.</p>
+                </div>
+            </div>
+            
+             <h3 class="subsection-title reveal">6.3. Đề xuất Ngân sách Hoạt động (3 tháng đầu)</h3>
+            <div class="card overflow-x-auto reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hạng mục Chi phí Hoạt động</th>
+                            <th>Chi phí / tháng (VND)</th>
+                            <th>Tổng Chi phí 3 tháng (VND)</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Chi phí Marketing ban đầu</td><td class="text-right">20.000.000</td><td class="text-right">60.000.000</td><td>In ấn Sales Kit, biển hiệu...</td></tr>
+                        <tr><td>Chi phí đi lại, tiếp khách</td><td class="text-right">20.000.000</td><td class="text-right">60.000.000</td><td>Hỗ trợ đội ngũ sales thị trường</td></tr>
+                        <tr><td>Công cụ & Phần mềm</td><td class="text-right">10.000.000</td><td class="text-right">30.000.000</td><td>CRM, marketing automation...</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-bold bg-blue-100">
+                            <td>Tổng Ngân sách Hoạt động Đề xuất</td>
+                            <td class="text-right text-blue-800">50.000.000</td>
+                            <td class="text-right text-blue-800">150.000.000</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white text-center p-12">
+        <h2 class="text-3xl font-bold">XIN CẢM ƠN BAN LÃNH ĐẠO</h2>
+        <p class="mt-2 text-lg opacity-80">Đã dành thời gian để xem xét bản kế hoạch</p>
+        <p class="mt-4 font-semibold">Rất mong nhận được sự ủng hộ để đội ngũ Kinh doanh có thể hoàn thành tốt và vượt kế hoạch.</p>
+        <p class="text-sm mt-8 opacity-60">&copy; 2024 Dự án PKĐK Quốc Khanh | Soạn thảo: Nguyễn Viết Ngọc</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Function to close mobile menu
+            const closeMobileMenu = () => {
+                mobileMenu.classList.add('hidden');
+            };
+
+            // Add click event listener to each mobile menu link
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // ScrollReveal Animation
+            ScrollReveal().reveal('.reveal', { 
+                delay: 200,
+                distance: '50px',
+                origin: 'bottom',
+                easing: 'ease-in-out',
+                interval: 150
+            });
+             ScrollReveal().reveal('.animate-fade-in-down', { delay: 200, origin: 'top', distance: '30px' });
+             ScrollReveal().reveal('.animate-fade-in-up', { delay: 400, origin: 'bottom', distance: '30px' });
+            
+            // Chart.js implementation
+            // Revenue Structure Chart from P&L
+            const revenuePnlData = [15177.0275, 12155.78475, 8425.375];
+            const totalRevenue = revenuePnlData.reduce((a, b) => a + b, 0);
+            const revenuePercentages = revenuePnlData.map(v => (v / totalRevenue) * 100);
+
+            const revenueCtx = document.getElementById('revenueStructureChart').getContext('2d');
+            new Chart(revenueCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Dịch vụ & Dược (B2C)', 'Gói Doanh nghiệp (B2B)', 'Phân phối Dược (B2B)'],
+                    datasets: [{
+                        label: 'Cơ cấu Doanh thu',
+                        data: revenuePercentages,
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)', // blue-500
+                            'rgba(16, 185, 129, 0.8)', // emerald-500
+                            'rgba(245, 158, 11, 0.8)' // amber-500
+                        ],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                         tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed.toFixed(1) + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Cost Comparison Chart
+            const costCtx = document.getElementById('costComparisonChart').getContext('2d');
+            new Chart(costCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Chi phí Setup ban đầu', 'Chi phí Vận hành Hàng tháng'],
+                    datasets: [{
+                        label: 'Đội ngũ của Chúng tôi (Triệu VND)',
+                        data: [0, 215], // Lương 215tr
+                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Thuê ngoài (Outsource) (Triệu VND)',
+                        data: [440, 100], 
+                        backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+
+            // Quarterly Growth Chart - CORRECTED DATA
+            const growthCtx = document.getElementById('quarterlyGrowthChart').getContext('2d');
+            
+            // Correct quarterly data from PDF P&L (values in millions)
+            const revenueByQuarter = [3327.4375, 7290.652375, 10654.9755, 14485.121875];
+            const profitByQuarter = [1306.672273, 3363.311554, 5334.335148, 7402.502679];
+            
+            new Chart(growthCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Quý 1', 'Quý 2', 'Quý 3', 'Quý 4'],
+                    datasets: [
+                        {
+                            label: 'Doanh thu',
+                            data: revenueByQuarter.map(v => (v / 1000).toFixed(2)), // Convert to Billions
+                            backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Lợi nhuận',
+                            data: profitByQuarter.map(v => (v / 1000).toFixed(2)), // Convert to Billions
+                            backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#d1d5db' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                             ticks: { color: '#d1d5db' },
+                             grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#d1d5db' } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
